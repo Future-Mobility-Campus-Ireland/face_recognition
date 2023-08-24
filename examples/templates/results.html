@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-4">Face Recognition Results</h1>
+    <a href="{{ url_for('upload_new_images') }}" class="btn btn-primary mt-4">Back to upload</a>
+    <hr>
+    {% if results %}
+    <div class="row mt-4">
+        {% for result in results %}
+        <div class="col-md-6 mb-3">
+            <div>
+                <h2>{{ result.name }}</h2>
+                <img src="{{ url_for('static', filename=result.name) }}" class="img-preview mt-3">
+                {% if result.faces %}
+                <p>Number of face found: {{ result.faces|length }}</p>
+                <p>Number of face recognised: {{ result.faces|selectattr('is_match', 'equalto', true)|list|length }}</p>
+                {% else %}
+                <p>No face found in image.</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info mt-4">
+        <p>{{ no_results_message }}</p>
+    </div>
+    {% endif %}
+
+    {% if output_image1 and output_image2 %}
+    <div class="row mt-4">
+        <div class="col-md-6 mb-3">
+            <h2>Modified Image 1</h2>
+            <img src="{{ url_for('static', filename=output_image1) }}" class="img-preview mt-3">
+        </div>
+        <div class="col-md-6 mb-3">
+            <h2>Modified Image 2</h2>
+            <img src="{{ url_for('static', filename=output_image2) }}" class="img-preview mt-3">
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

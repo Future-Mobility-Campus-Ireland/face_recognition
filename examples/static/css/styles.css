@@ -1,0 +1,23 @@
+/* styles.css */
+.container {
+    max-width: 960px;
+    margin: 10 auto;
+}
+
+.row {
+    display: flex;
+}
+
+@media (max-width: 960px) {
+    .row {
+        flex-direction: column;
+    }
+}
+
+.img-preview {
+    max-height: 480px;
+    max-width: 480px;
+    margin-top: 10px;
+}
+
+

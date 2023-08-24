@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-4">Upload two pictures and compare faces between them!</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <a href="{{ url_for('upload_new_images') }}" class="btn btn-primary mt-4">Reset</a>
+        <input type="submit" value="Compare" class="btn btn-primary mt-4">
+        <hr>
+        <div class="row mt-4">
+            <div class="col-md-6 mb-3">
+                <label for="file1">Choose Image 1:</label>
+                <input type="file" name="file" id="file1" class="form-control">
+                <img src="" id="preview1" class="img-preview mt-3">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="file2">Choose Image 2:</label>
+                <input type="file" name="file" id="file2" class="form-control">
+                <img src="" id="preview2" class="img-preview mt-3">
+            </div>
+        </div>
+        <hr>
+        <h4>Choose Comparison Method:</h4>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="method" id="hogMethod" value="hog" checked>
+            <label class="form-check-label" for="hogMethod">
+                HOG (Histogram of Oriented Gradients) - quick and less accurate method
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="method" id="cnnMethod" value="cnn">
+            <label class="form-check-label" for="cnnMethod">
+                CNN (Convolutional Neural Network) - slower and more accurate method
+            </label>
+        </div>
+    </form>
+</div>
+<script>
+    function readURL(input, previewId) {
+if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        document.getElementById(previewId).src = e.target.result;
+    };
+    reader.readAsDataURL(input.files[0]);
+}
+}
+
+const fileInputs = document.querySelectorAll('input[type="file"]');
+const previewIds = ['preview1', 'preview2'];
+
+for (let i = 0; i < fileInputs.length; i++) {
+fileInputs[i].addEventListener('change', function () {
+    readURL(this, previewIds[i]);
+});
+}
+</script>
+
+{% endblock %}
