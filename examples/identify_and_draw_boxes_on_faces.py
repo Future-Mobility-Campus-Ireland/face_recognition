@@ -1,5 +1,5 @@
 import face_recognition
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 
 # This is an example of running face recognition on a single image
@@ -13,18 +13,34 @@ obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
 biden_image = face_recognition.load_image_file("biden.jpg")
 biden_face_encoding = face_recognition.face_encodings(biden_image)[0]
 
+person1 = face_recognition.load_image_file("person1.png")
+person1_face_encoding = face_recognition.face_encodings(person1)[0]
+
+person2 = face_recognition.load_image_file("person2.png")
+person2_face_encoding = face_recognition.face_encodings(person1)[0]
+
+person3 = face_recognition.load_image_file("person2.png")
+person3_face_encoding = face_recognition.face_encodings(person1)[0]
+
 # Create arrays of known face encodings and their names
 known_face_encodings = [
     obama_face_encoding,
-    biden_face_encoding
+    biden_face_encoding,
+    person1_face_encoding,
+    person2_face_encoding,
+    person3_face_encoding
 ]
 known_face_names = [
     "Barack Obama",
-    "Joe Biden"
+    "Joe Biden",
+    "Person 1",
+    "Person 2",
+    "Person 3",
+
 ]
 
 # Load an image with an unknown face
-unknown_image = face_recognition.load_image_file("two_people.jpg")
+unknown_image = face_recognition.load_image_file("person1_anon.png")
 
 # Find all the faces and face encodings in the unknown image
 face_locations = face_recognition.face_locations(unknown_image)

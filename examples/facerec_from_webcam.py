@@ -20,14 +20,26 @@ obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
 biden_image = face_recognition.load_image_file("biden.jpg")
 biden_face_encoding = face_recognition.face_encodings(biden_image)[0]
 
+# Load my picture and learn how to recognize it.
+dan_image = face_recognition.load_image_file("dan.jpeg")
+dan_face_encoding = face_recognition.face_encodings(dan_image)[0]
+
+# Load Wass picture and learn how to recognize it.
+wass_image = face_recognition.load_image_file("wass.jpg")
+wass_face_encoding = face_recognition.face_encodings(wass_image)[0]
+
 # Create arrays of known face encodings and their names
 known_face_encodings = [
     obama_face_encoding,
-    biden_face_encoding
+    biden_face_encoding,
+    dan_face_encoding,
+    wass_face_encoding
 ]
 known_face_names = [
     "Barack Obama",
-    "Joe Biden"
+    "Joe Biden",
+    "Dan",
+    "Wass"
 ]
 
 while True:
@@ -35,9 +47,11 @@ while True:
     ret, frame = video_capture.read()
 
     # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
-    rgb_frame = frame[:, :, ::-1]
+    # rgb_frame = frame[:, :, ::-1]
+    # fix https://stackoverflow.com/questions/75926662/face-recognition-problem-with-face-encodings-function
+    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-    # Find all the faces and face enqcodings in the frame of video
+    # Find all the faces and face encodings in the frame of video
     face_locations = face_recognition.face_locations(rgb_frame)
     face_encodings = face_recognition.face_encodings(rgb_frame, face_locations)
 
