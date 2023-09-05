@@ -3,7 +3,7 @@ import cv2
 import time
 
 
-# This is a demo of running face recognition on a video file and saving the results to a new video file.
+# This is a demo of running face anonymization verification between two video file and writes results to console output.
 #
 # PLEASE NOTE: This example requires OpenCV (the `cv2` library) to be installed only to read from your webcam.
 # OpenCV is *not* required to use the face_recognition library. It's only required if you want to run this
